@@ -14,6 +14,7 @@
     If all customers are handled → return true.
 
   ```cpp
+
     class Solution {
   public:
     bool canServe(vector<int> &arr) {

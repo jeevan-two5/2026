@@ -1,4 +1,4 @@
-##   I N T U I T I O N ##
+###   I N T U I T I O N ##
     First, store positions of police (P) and thieves (T) separately.
     
     A police can catch a thief only if their distance ≤ k.

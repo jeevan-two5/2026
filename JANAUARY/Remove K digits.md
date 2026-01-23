@@ -1,4 +1,4 @@
-  ## I N T U I T I O N
+  ### I N T U I T I O N
     We want the smallest possible number after removing k digits.
     
     If a bigger digit comes before a smaller one, remove the bigger digit.

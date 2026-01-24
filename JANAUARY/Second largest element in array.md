@@ -4,8 +4,8 @@ class Solution {
     int getSecondLargest(vector<int> &arr) {
         // code here
         int n = arr.size();
-        int L = -1; 
-        int SL =  -1;
+        int L = -1;   // L- largest
+        int SL =  -1;  // SL- Second largest 
         for(int i = 0; i<n;i++){
             if(arr[i] > L){
                 SL = L;

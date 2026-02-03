@@ -7,7 +7,7 @@
     
     Use DP (memoization/tabulation) to avoid recomputation.
 
-##### M E M O I S A T I O N    &nbsp;&nbsp;&nbsp;  TC : O(N) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  SC: O(N) 
+##### M E M O I S A T I O N    &nbsp; &nbsp; &nbsp;  TC : O(N) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  SC: O(N) 
 ```cpp
 class Solution {
     
@@ -30,3 +30,75 @@ class Solution {
     }
 };
 ```
+
+#####  T A B U L A T I O N 
+    Tabulation (Bottom-Up DP)
+    
+    Intuition:
+    
+    Build solution from 0 → n−1
+    
+    At each stair, take the minimum of coming from 1 step or 2 steps back
+    
+    Time Complexity: O(n)
+    Space Complexity: O(n) (DP array)
+
+  ```cpp
+    // Tabulation (Bottom-Up DP)
+int minCost(vector<int>& height) {
+    int n = height.size();
+    vector<int> dp(n, 0);
+
+    dp[0] = 0;
+
+    for (int ind = 1; ind < n; ind++) {
+        int jump1 = dp[ind - 1] + abs(height[ind] - height[ind - 1]);
+        int jump2 = INT_MAX;
+        if (ind > 1)
+            jump2 = dp[ind - 2] + abs(height[ind] - height[ind - 2]);
+
+        dp[ind] = min(jump1, jump2);
+    }
+
+    return dp[n - 1];
+}
+
+```
+
+##### S P A C E  &nbsp; &nbsp;&nbsp;&nbsp; O P T I M I S A T I O N
+
+    Intuition:
+    
+    Only the previous two states are needed at any time
+    
+    Replace DP array with two variables
+    
+    Time Complexity: O(n)
+    Space Complexity: O(1)
+
+```cpp
+// Space Optimized DP
+int minCost(vector<int>& height) {
+    int n = height.size();
+
+    int prev1 = 0;  // dp[i-1]
+    int prev2 = 0;  // dp[i-2]
+    int curr = 0;
+
+    for (int ind = 1; ind < n; ind++) {
+        int jump1 = prev1 + abs(height[ind] - height[ind - 1]);
+        int jump2 = INT_MAX;
+        if (ind > 1)
+            jump2 = prev2 + abs(height[ind] - height[ind - 2]);
+
+        curr = min(jump1, jump2);
+
+        prev2 = prev1;
+        prev1 = curr;
+    }
+
+    return curr;
+}
+
+```
+  

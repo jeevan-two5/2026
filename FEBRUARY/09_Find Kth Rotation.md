@@ -5,35 +5,30 @@
   ##### C O D E
 ```cpp
 class Solution {
-  public:
+public:
     int findKRotation(vector<int> &arr) {
-        // Code Here
-        int start =0;
-        int end = arr.size()-1;
-        int ans = 0;
         int n = arr.size();
-        
-        while(start<=end){
-            
-            int mid = start+((end-start)/2);
-            
-            if(arr[mid]==1){
-                ans = mid;
-                break;
-            }
-            else if(arr[mid]>arr[n-1]){
-                start = mid+1;
-            }
-            else{
-                ans=mid;
-                end=mid-1;
-            }
+        int low = 0, high = n - 1;
+
+        // If array is already sorted
+        if (arr[low] <= arr[high])
+            return 0;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            // Check if mid is the minimum
+            if (mid > 0 && arr[mid] < arr[mid - 1])
+                return mid;
+
+            // Decide which half to search
+            if (arr[mid] >= arr[0])
+                low = mid + 1;
+            else
+                high = mid - 1;
         }
-        
-        return ans;
-        
+        return 0;
     }
 };
 
-};
 ```

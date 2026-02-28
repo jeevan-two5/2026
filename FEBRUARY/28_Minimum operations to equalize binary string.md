@@ -1,45 +1,36 @@
 ```cpp
-public class Solution {
-    public int MinOperations(string s, int k) {
-        int n = s.Length, m = 0;
-        int[] dist = new int[n + 1];
-        for (int i = 0; i <= n; i++) dist[i] = int.MaxValue;
-
-        List<SortedSet<int>> nodeSets = new List<SortedSet<int>>();
-        nodeSets.Add(new SortedSet<int>());
-        nodeSets.Add(new SortedSet<int>());
+class Solution {
+public:
+    int minOperations(string s, int k) {
+        int n = s.size(), m = 0;
+        vector<int> dist(n + 1, INT_MAX);
+        vector<set<int>> nodeSets(2);
         for (int i = 0; i <= n; i++) {
-            nodeSets[i % 2].Add(i);
+            nodeSets[i % 2].insert(i);
             if (i < n && s[i] == '0') {
                 m++;
             }
         }
-
-        Queue<int> q = new Queue<int>();
-        q.Enqueue(m);
+        queue<int> q;
+        q.push(m);
         dist[m] = 0;
-        nodeSets[m % 2].Remove(m);
-        while (q.Count > 0) {
-            m = q.Dequeue();
-            int c1 = Math.Max(k - n + m, 0);
-            int c2 = Math.Min(m, k);
-            int lnode = m + k - 2 * c2;
-            int rnode = m + k - 2 * c1;
-
-            var nodeSet = nodeSets[lnode % 2];
-            var toRemove = new List<int>();
-            var view = nodeSet.GetViewBetween(lnode, rnode);
-            foreach (var val in view) {
-                toRemove.Add(val);
-            }
-            foreach (int m2 in toRemove) {
+        nodeSets[m % 2].erase(m);
+        while (!q.empty()) {
+            m = q.front();
+            q.pop();
+            int c1 = max(k - n + m, 0), c2 = min(m, k);
+            int lnode = m + k - 2 * c2, rnode = m + k - 2 * c1;
+            auto& nodeSet = nodeSets[lnode % 2];
+            for (auto iter = nodeSet.lower_bound(lnode);
+                 iter != nodeSet.end() && *iter <= rnode;) {
+                int m2 = *iter;
                 dist[m2] = dist[m] + 1;
-                q.Enqueue(m2);
-                nodeSet.Remove(m2);
+                q.push(m2);
+                iter = next(iter);
+                nodeSet.erase(m2);
             }
         }
-
-        return dist[0] == int.MaxValue ? -1 : dist[0];
+        return dist[0] == INT_MAX ? -1 : dist[0];
     }
-}
+};
 ```

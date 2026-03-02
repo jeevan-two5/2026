@@ -1,5 +1,5 @@
 ###### IMAGE 
-      <img width="1440" height="900" alt="image" src="https://github.com/user-attachments/assets/93604287-3edd-418f-9439-ef2977edd7e5" />
+ <img width="1440" height="900" alt="image" src="https://github.com/user-attachments/assets/93604287-3edd-418f-9439-ef2977edd7e5" />
 
 ###### I N T U I T I O N
       Prati block daggara entha water trap avthundhi annadhi, 

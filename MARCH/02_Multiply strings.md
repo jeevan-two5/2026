@@ -1,4 +1,59 @@
-###### I M A G E
+#### I M A G E (handles all integers)
+<img width="1420" height="798" alt="image" src="https://github.com/user-attachments/assets/7ba16adb-9962-4405-82c0-d958c44e92f0" />
+
+###### C O D E 
+```cpp
+class Solution {
+    
+  public:
+    string f(string &s1,string &s2){
+        
+        bool negative = false;
+        if (s1[0] == '-') {
+            negative = !negative;
+            s1 = s1.substr(1); // Remove '-'
+        }
+        if (s2[0] == '-') {
+            negative = !negative;
+            s2 = s2.substr(1); // Remove '-'
+        }
+        
+        int n1 =s1.size(), n2 = s2.size();
+        
+        if(s1 =="0" || s2 == "0") return "0";
+        vector<int>res(n1+n2,0);
+        int sum  = 0;
+        for(int i = n1-1; i>=0;i--){
+            for(int j = n2-1; j>= 0 ; j--){
+                int mul = (s1[i] - '0')*(s2[j] - '0') ;
+                     sum = mul + res[i+j+1];
+                     res[i+j+1] = sum%10;
+                     res[i+j] += sum/10;
+            }
+        }
+        
+        string ans = "";
+        for(auto&c: res){
+            if(!(ans.empty() && c == 0)) ans += to_string(c);
+        }
+        
+        if (ans.empty()) return "0"; // All zeros case
+        if (negative) ans = "-" + ans;
+        
+        return ans;
+    }
+  
+    string multiplyStrings(string &s1, string &s2) {
+        // code here
+        return f(s1,s2);
+        
+    }
+};
+```
+
+
+
+#### I M A G E ( non negative integers)
 <img width="1440" height="900" alt="image" src="https://github.com/user-attachments/assets/462e0d5b-d91b-4fa1-9410-70bfd57b3631" />
 
 ###### I N T U I T I O N
